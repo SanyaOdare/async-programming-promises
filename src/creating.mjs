@@ -57,9 +57,41 @@ export function xhr() {
 }
 
 export function allPromises() {
+  let categories = axios.get("http://localhost:3000/itemCategories");
+  let statuses = axios.get("http://localhost:3000/orderStatuses");
+  let userTypes = axios.get("http://localhost:3000/userTypes");
+  let addressTypes = axios.get("http://localhost:3000/addressTypes")
+
+  Promise.all([categories, statuses, userTypes,addressTypes])
+  .then(([cat, stat, type, address]) => {
+    setText("");
+
+    appendText(JSON.stringify(cat.data));
+    appendText(JSON.stringify(stat.data));
+    appendText(JSON.stringify(type.data));
+    appendText(JSON.stringify(address.data));
+  }).catch(reasons => {
+    setText(reasons);
+  });
 }
 
 export function allSettled() {
+  let categories = axios.get("http://localhost:3000/itemCategories");
+  let statuses = axios.get("http://localhost:3000/orderStatuses");
+  let userTypes = axios.get("http://localhost:3000/userTypes");
+  let addressTypes = axios.get("http://localhost:3000/addressTypes")
+
+  Promise.allSettled([categories, statuses, userTypes,addressTypes])
+  .then((values) => {
+    setText("");
+
+    appendText(JSON.stringify(cat.data));
+    appendText(JSON.stringify(stat.data));
+    appendText(JSON.stringify(type.data));
+    appendText(JSON.stringify(address.data));
+  }).catch(reasons => {
+    setText(reasons);
+  });
 }
 
 export function race() {
